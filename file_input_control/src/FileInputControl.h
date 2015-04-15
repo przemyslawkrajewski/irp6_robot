@@ -28,17 +28,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef IRP6REGULATOR_H_
-#define IRP6REGULATOR_H_
+#ifndef FILEINPUTCONTROL_H_
+#define FILEINPUTCONTROL_H_
 
+#include <rtt/TaskContext.hpp>
+#include <rtt/Port.hpp>
+#include <std_msgs/Float64.h>
+#include <std_msgs/Int64.h>
+#include <rtt/Component.hpp>
+#include <std_srvs/Empty.h>
+#include <ros/ros.h>
+#include <fstream> // NOLINT
 #include <string>
+#include <vector>
 
-class IRp6Regulator : public RTT::TaskContext {
+class FileInputControl : public RTT::TaskContext {
  public:
-  explicit IRp6Regulator(const std::string& name);
-  ~IRp6Regulator();
+  explicit FileInputControl(const std::string& name);
+  ~FileInputControl();
 
   int doServo(double, int);
+  int doServo_fcc(double, int);
+  int doServo_fic(double, int);
   void reset();
 
  private:
@@ -74,14 +85,20 @@ class IRp6Regulator : public RTT::TaskContext {
   double max_desired_increment_;
   double enc_res_;
 
-  // przedosatnio odczytany przyrost polozenie (delta y[k-2]
-  double position_increment_old;
+  std::string input_type_;
+  std::string filename_;
+
+  enum e_type {
+    defalt,
+    current,
+    increment
+  } type;
+
+  double position_increment_old;  // przedosatnio odczytany przyrost polozenie (delta y[k-2]
   // -- mierzone w impulsach)
-  // ostatnio odczytany przyrost polozenie (delta y[k-1]
-  double position_increment_new;
+  double position_increment_new;  // ostatnio odczytany przyrost polozenie (delta y[k-1]
   // -- mierzone w impulsach)
-  // poprzednia wartosc zadana dla jednego kroku regulacji
-  double step_old_pulse;
+  double step_old_pulse;  // poprzednia wartosc zadana dla jednego kroku regulacji
   // (przyrost wartosci zadanej polozenia -- delta r[k-2]
   // -- mierzone w radianach)
   double step_new;  // nastepna wartosc zadana dla jednego kroku regulacji
@@ -91,17 +108,17 @@ class IRp6Regulator : public RTT::TaskContext {
   // (przyrost wartosci zadanej polozenia -- delta r[k-1]
   // -- mierzone w radianach)
 
-  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k])
-  double set_value_new;
-  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k-1])
-  double set_value_old;
-  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k-2])
-  double set_value_very_old;
+  double set_value_new;  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k])
+  double set_value_old;  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k-1])
+  double set_value_very_old;  // wielkosc kroku do realizacji przez HI (wypelnienie PWM -- u[k-2])
   double delta_eint;  // przyrost calki uchybu
   double delta_eint_old;  // przyrost calki uchybu w poprzednim kroku
 
   double output_value;
 
   double a_, b0_, b1_;
+
+  int idx;
+  std::vector<double> inputs;
 };
-#endif  // IRP6REGULATOR_H_
+#endif  // FILEINPUTCONTROL_H_

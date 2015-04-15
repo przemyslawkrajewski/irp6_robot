@@ -1,3 +1,33 @@
+/*
+ * Copyright (c) 2014-2015, Robot Control and Pattern Recognition Group, Warsaw University of Technology.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the Robot Control and Pattern Recognition Group,
+ *       Warsaw University of Technology nor the names of its contributors may
+ *       be used to endorse or promote products derived from this software
+ *       without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
 #include <rtt/TaskContext.hpp>
 #include <rtt/Port.hpp>
 #include <rtt/Component.hpp>
@@ -5,6 +35,7 @@
 #include <rtt/extras/SlaveActivity.hpp>
 
 #include <Eigen/Dense>
+#include <string>
 
 #include "HardwareInterface.h"
 
@@ -56,20 +87,16 @@ HardwareInterface::~HardwareInterface() {
 }
 
 bool HardwareInterface::configureHook() {
-
   for (size_t j = 0; j < HI_SERVOS_NR; j++) {
     if (std::find(active_motors_.begin(), active_motors_.end(),
                   hi_port_param_[j].label) != active_motors_.end()) {
-
       number_of_drives_++;
-
     }
-
   }
 
   // dynamic ports list initialization
 
- // std::cout << "number_of_drives_: " << number_of_drives_ << std::endl;
+// std::cout << "number_of_drives_: " << number_of_drives_ << std::endl;
 
   computedReg_in_list_.resize(number_of_drives_);
   desired_position_out_list_.resize(number_of_drives_);
@@ -90,12 +117,12 @@ bool HardwareInterface::configureHook() {
 
   int i = -1;
   for (size_t j = 0; j < HI_SERVOS_NR; j++) {
-  //  std::cout << "j: " << j << std::endl;
+    //  std::cout << "j: " << j << std::endl;
 
     if (std::find(active_motors_.begin(), active_motors_.end(),
-                    hi_port_param_[j].label) != active_motors_.end()) {
+                  hi_port_param_[j].label) != active_motors_.end()) {
       i++;
-    //  std::cout << "i: " << i << std::endl;
+      //  std::cout << "i: " << i << std::endl;
       char computedReg_in_port_name[32];
       snprintf(computedReg_in_port_name, sizeof(computedReg_in_port_name),
                "computedReg_in_%s", hi_port_param_[j].label.c_str());
@@ -187,20 +214,17 @@ bool HardwareInterface::configureHook() {
   try {
     struct timespec delay;
     if (!test_mode_) {
-
       char hostname[128];
       if (gethostname(hostname, sizeof(hostname)) == -1) {
         perror("gethostname()");
         hostname[0] = '\0';
       }
 
-      if (std::string(hostname)!= hardware_hostname_){
-        std::cout
-              << std::endl << RED
-              << "[error] ERROR wrong host_name for hardware_mode"
-                         <<RESET <<std::endl <<std::endl;
+      if (std::string(hostname) != hardware_hostname_) {
+        std::cout << std::endl << RED
+                  << "[error] ERROR wrong host_name for hardware_mode" << RESET
+                  << std::endl << std::endl;
       }
-
 
       std::cout << "hostname: " << hostname << std::endl;
 
@@ -227,12 +251,12 @@ bool HardwareInterface::configureHook() {
       }
     }
   } catch (std::exception& e) {
-    log(Info) << e.what() << endlog();
+    log(RTT::Info) << e.what() << RTT::endlog();
 
     std::cout
         << std::endl << RED
         << "[error] ERROR configuring HardwareInterface, check power switches"
-        <<RESET <<std::endl <<std::endl;
+        << RESET << std::endl << std::endl;
 
     return false;
   }
@@ -258,7 +282,7 @@ bool HardwareInterface::configureHook() {
 }
 
 uint16_t HardwareInterface::convert_to_115(float input) {
-  uint16_t output;
+  uint16_t output = 0;
 
   if (input >= 1.0) {
     printf("convert_to_115 input bigger or equal then 1.0\n");
@@ -267,7 +291,7 @@ uint16_t HardwareInterface::convert_to_115(float input) {
     printf("convert_to_115 input lower then -1.0\n");
     return 0;
   } else if (input < 0.0) {
-    output = 65535 + (int) (input * 32768.0);
+    output = 65535 + static_cast<int> (input * 32768.0);
   } else if (input >= 0.0) {
     output = (uint16_t) (input * 32768.0);
   }
@@ -291,7 +315,7 @@ bool HardwareInterface::startHook() {
       hi_->write_read_hardware(rwh_nsec_, 0);
       servo_start_iter_ = 200;
       for (int i = 0; i < number_of_drives_; i++) {
-        motor_position_(i) = (double) hi_->get_position(i)
+        motor_position_(i) = static_cast<double> (hi_->get_position(i))
             * ((2.0 * M_PI) / enc_res_[i]);
       }
       if (!hi_->robot_synchronized()) {
@@ -316,8 +340,8 @@ bool HardwareInterface::startHook() {
 
         for (int i = 0; i < number_of_drives_; i++) {
           motor_position_command_(i) = motor_position_(i);
-          motor_increment_(i) = (double) hi_->get_increment(i);
-          motor_current_(i) = (double) hi_->get_current(i);
+          motor_increment_(i) = static_cast<double>  (hi_->get_increment(i));
+          motor_current_(i) = static_cast<double>  (hi_->get_current(i));
         }
 
         state_ = PRE_SERVOING;
@@ -341,29 +365,25 @@ bool HardwareInterface::startHook() {
   }
 
   for (int i = 0; i < number_of_drives_; i++) {
-
-    port_motor_position_list_[i]->write(motor_position_[i]);
-    port_motor_increment_list_[i]->write(motor_increment_[i]);
-    port_motor_current_list_[i]->write(motor_current_[i]);
+    port_motor_position_list_[i]->write(static_cast<double>(motor_position_[i]));
+    port_motor_increment_list_[i]->write(static_cast<double>(motor_increment_[i]));
+    port_motor_current_list_[i]->write(static_cast<double>(motor_current_[i]));
     desired_position_[i] = motor_position_(i);
   }
-
   return true;
 }
 
 void HardwareInterface::updateHook() {
-
   static int iteration_nr = 0;
 
   iteration_nr++;
 
   if (!test_mode_) {
     for (int i = 0; i < number_of_drives_; i++) {
-      if (NewData != computedReg_in_list_[i]->read(pwm_or_current_[i])) {
+      if (RTT::NewData != computedReg_in_list_[i]->read(pwm_or_current_[i])) {
         RTT::log(RTT::Error) << "NO PWM DATA" << RTT::endlog();
       }
       if (current_mode_[i]) {
-
         hi_->set_current(i, pwm_or_current_[i]);
       } else {
         hi_->set_pwm(i, pwm_or_current_[i]);
@@ -371,7 +391,7 @@ void HardwareInterface::updateHook() {
     }
     hi_->write_read_hardware(rwh_nsec_, timeouts_to_print_);
     for (int i = 0; i < number_of_drives_; i++) {
-      motor_position_(i) = (double) hi_->get_position(i)
+      motor_position_(i) = static_cast<double> (hi_->get_position(i))
           * ((2.0 * M_PI) / enc_res_[i]);
     }
   } else {
@@ -388,9 +408,8 @@ void HardwareInterface::updateHook() {
       if (!test_mode_) {
         for (int i = 0; i < number_of_drives_; i++) {
           motor_position_command_(i) = motor_position_(i);
-          port_motor_position_list_[i]->write(motor_position_[i]);
+          port_motor_position_list_[i]->write(static_cast<double>(motor_position_[i]));
         }
-
       }
 
       if ((servo_start_iter_--) <= 0) {
@@ -406,25 +425,19 @@ void HardwareInterface::updateHook() {
         if (port_motor_position_command_list_[i]->read(
             motor_position_command_[i]) == RTT::NewData) {
           desired_position_[i] = motor_position_command_(i);
-
         }
 
         if (!test_mode_) {
-
-          port_motor_position_list_[i]->write(motor_position_[i]);
-
+          port_motor_position_list_[i]->write(static_cast<double>(motor_position_[i]));
         } else {
           motor_position_(i) = motor_position_command_(i);
-
-          port_motor_position_list_[i]->write(motor_position_[i]);
+          port_motor_position_list_[i]->write(static_cast<double>(motor_position_[i]));
         }
-
       }
 
       break;
 
     case PRE_SYNCHRONIZING:
-
       if ((synchro_start_iter_--) <= 0) {
         state_ = SYNCHRONIZING;
         std::cout << "Synchronization started" << std::endl;
@@ -432,7 +445,6 @@ void HardwareInterface::updateHook() {
       break;
 
     case SYNCHRONIZING:
-
       switch (synchro_state_) {
         case MOVE_TO_SYNCHRO_AREA:
 
@@ -452,7 +464,6 @@ void HardwareInterface::updateHook() {
                   synchro_step_coarse_[synchro_drive_];
             }
           } else {
-
             hi_->set_parameter_now(synchro_drive_, NF_COMMAND_SetDrivesMisc,
             NF_DrivesMisc_SetSynchronized);
             hi_->reset_position(synchro_drive_);
@@ -484,7 +495,6 @@ void HardwareInterface::updateHook() {
                                  << RTT::endlog();
             desired_position_[synchro_drive_] +=
                 synchro_step_fine_[synchro_drive_];
-
           }
           break;
 
@@ -514,7 +524,6 @@ void HardwareInterface::updateHook() {
         case SYNCHRO_END:
 
           if ((synchro_stop_iter_--) == 1) {
-
             for (int i = 0; i < number_of_drives_; i++) {
               motor_position_command_(i) = motor_position_(i);
               desired_position_[i] = motor_position_(i);
@@ -533,7 +542,6 @@ void HardwareInterface::updateHook() {
   }
 
   if (!test_mode_) {
-
     bool emergency_stop;
     if (port_emergency_stop_.read(emergency_stop) == RTT::NewData) {
       if (emergency_stop) {
@@ -542,12 +550,12 @@ void HardwareInterface::updateHook() {
     }
 
     for (int i = 0; i < number_of_drives_; i++) {
-      motor_current_(i) = (double) hi_->get_current(i);
-      port_motor_current_list_[i]->write(motor_current_[i]);
+      motor_current_(i) = static_cast<double> (hi_->get_current(i));
+      port_motor_current_list_[i]->write(static_cast<double>(motor_current_[i]));
       increment_[i] = hi_->get_increment(i);
-      port_motor_increment_list_[i]->write(increment_[i]);
+      port_motor_increment_list_[i]->write(static_cast<double>(increment_[i]));
       if (state_ != SERVOING) {
-        desired_position_out_list_[i]->write(desired_position_[i]);
+        desired_position_out_list_[i]->write(static_cast<double>(desired_position_[i]));
       }
     }
   }
