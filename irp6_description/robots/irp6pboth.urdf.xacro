@@ -86,14 +86,14 @@
   <child link="tl_t"/>
   <origin xyz="0 0 .25" rpy="0 0 0" />
   <axis xyz="0 1 0" />
-  <limit upper="1.209" lower="0" effort="10" velocity=".53" />
+  <limit upper="1.209" lower="0" effort="10" velocity=".02" />
 </joint>
 
 
   <joint name="Irp6otmJoint2" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.0 0.3"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-2.96705973" upper="2.96705973" effort="10.0" velocity="10.0" />
+    <limit lower="-2.96705973" upper="2.96705973" effort="10.0" velocity="0.1" />
     <parent link="tl_t"/>
     <child link="tl_1"/>
   </joint>
@@ -124,7 +124,7 @@
   <joint name="Irp6otmJoint3" type="revolute">
     <origin rpy="-1.570795 0 0" xyz="0.0 0.0 0.4"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.8" upper="-0.872664626" effort="10.0" velocity="10.0" />
+    <limit lower="-1.8" upper="-0.872664626" effort="10.0" velocity="0.1" />
     <parent link="tl_1"/>
     <child link="tl_2"/>
   </joint>
@@ -156,7 +156,7 @@
   <joint name="Irp6otmJoint4" type="revolute">
     <origin rpy="0 0 0.0" xyz="0.455 0.0 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.3" upper="0.5" effort="10.0" velocity="10.0" />
+    <limit lower="-0.3" upper="0.3" effort="10.0" velocity="0.1" />
     <parent link="tl_2"/>
     <child link="tl_3"/>
   </joint>
@@ -176,9 +176,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0 0 1.57" xyz="0 0.67 0.0"/>
+      <origin rpy="0 0 1.57" xyz="0 0.70 0.0"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link3.stlb" scale="1.0 1.0 1.3" />
+        <mesh filename="package://irp6_description/meshes/link3.stlb" scale="1.05 1.3 1.5" />
       </geometry>
     </collision>
   </link>
@@ -187,7 +187,7 @@
   <joint name="Irp6otmJoint5" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.67 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="10.0" />
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="0.1" />
     <parent link="tl_3"/>
     <child link="tl_4"/>
   </joint>
@@ -218,7 +218,7 @@
   <joint name="Irp6otmJoint6" type="revolute">
     <origin rpy="-1.570795 0 0" xyz="0.0 0.0 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.5" upper="5.14" effort="10.0" velocity="10.0" />
+    <limit lower="0.5" upper="5.14" effort="10.0" velocity="0.1" />
     <parent link="tl_4"/>
     <child link="tl_5"/>
   </joint>
@@ -240,7 +240,7 @@
     <collision>
       <origin rpy="1.57 0 0.0" xyz="0.0 0.0 0.19"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link5.stlb" />
+        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2 2 1.1" />
       </geometry>
     </collision>
   </link>
@@ -249,7 +249,7 @@
   <joint name="Irp6otmJoint7" type="revolute">
     <origin rpy="1.570795 0 0" xyz="0.0 0.0 0.19"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-3.0" upper="2.9" effort="10.0" velocity="10.0" />
+    <limit lower="-2.9" upper="2.8" effort="10.0" velocity="0.1" />
     <parent link="tl_5"/>
     <child link="tl_6"/>
   </joint>
@@ -269,9 +269,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.0 -0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.0 0.10"/>
       <geometry>
-        <cylinder radius="0.1" length="0.10" />
+        <cylinder radius="0.12" length="0.10" />
       </geometry>
     </collision>
   </link>
@@ -312,9 +312,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.05"/>
       <geometry>
-        <box size="0.05 0.04 0.12" />
+        <box size="0.08 0.06 0.18" />
       </geometry>
     </collision>
   </link>
@@ -335,9 +335,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
+      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.05"/>
       <geometry>
-        <box size="0.05 0.04 0.12" />
+        <box size="0.08 0.06 0.18" />
       </geometry>
     </collision>
   </link>
@@ -398,7 +398,7 @@
   <joint name="Irp6pmJoint1" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.0 0.55"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-2.96705973" upper="2.96705973" effort="10.0" velocity="10.0" />
+    <limit lower="-2.96705973" upper="2.96705973" effort="10.0" velocity="0.1" />
     <parent link="pl_base"/>
     <child link="pl_1"/>
   </joint>
@@ -429,7 +429,7 @@
   <joint name="Irp6pmJoint2" type="revolute">
     <origin rpy="-1.570795 0 0" xyz="0.0 0.0 0.4"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.8" upper="-0.872664626" effort="10.0" velocity="10.0" />
+    <limit lower="-1.8" upper="-0.872664626" effort="10.0" velocity="0.1" />
     <parent link="pl_1"/>
     <child link="pl_2"/>
   </joint>
@@ -459,7 +459,7 @@
   <joint name="Irp6pmJoint3" type="revolute">
     <origin rpy="0 0 0.0" xyz="0.455 0.0 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.3" upper="0.5" effort="10.0" velocity="10.0" />
+    <limit lower="-0.3" upper="0.3" effort="10.0" velocity="0.1" />
     <parent link="pl_2"/>
     <child link="pl_3"/>
   </joint>
@@ -481,7 +481,7 @@
     <collision>
       <origin rpy="0 0 1.57" xyz="0 0.67 0.0"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link3.stlb" scale="1.0 1.0 1.3" />
+        <mesh filename="package://irp6_description/meshes/link3.stlb" scale="1.05 1.3 1.5" />
       </geometry>
     </collision>
   </link>
@@ -489,7 +489,7 @@
   <joint name="Irp6pmJoint4" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.67 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="10.0" />
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="0.1" />
     <parent link="pl_3"/>
     <child link="pl_4"/>
   </joint>
@@ -519,7 +519,7 @@
   <joint name="Irp6pmJoint5" type="revolute">
     <origin rpy="-1.570795 0 0" xyz="0.0 0.0 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.5" upper="5.14" effort="10.0" velocity="10.0" />
+    <limit lower="0.5" upper="5.14" effort="10.0" velocity="0.1" />
     <parent link="pl_4"/>
     <child link="pl_5"/>
   </joint>
@@ -541,7 +541,7 @@
     <collision>
       <origin rpy="1.57 0 0.0" xyz="0.0 0.0 0.19"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link5.stlb" />
+        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2 2 1.1"/>
       </geometry>
     </collision>
   </link>
@@ -549,7 +549,7 @@
   <joint name="Irp6pmJoint6" type="revolute">
     <origin rpy="1.570795 0 0" xyz="0.0 0.0 0.19"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-3.0" upper="2.9" effort="10.0" velocity="10.0" />
+    <limit lower="-3.0" upper="2.9" effort="10.0" velocity="0.1" />
     <parent link="pl_5"/>
     <child link="pl_6"/>
   </joint>
@@ -569,9 +569,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.0 -0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.0 0.1"/>
       <geometry>
-        <cylinder radius="0.1" length="0.10" />
+        <cylinder radius="0.12" length="0.10" />
       </geometry>
     </collision>
   </link>
@@ -609,9 +609,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.05"/>
       <geometry>
-        <box size="0.05 0.04 0.12" />
+        <box size="0.08 0.06 0.18" />
       </geometry>
     </collision>
   </link>
@@ -632,9 +632,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
+      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.05"/>
       <geometry>
-        <box size="0.05 0.04 0.12" />
+        <box size="0.08 0.06 0.18" />
       </geometry>
     </collision>
   </link>
