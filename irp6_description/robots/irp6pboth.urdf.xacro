@@ -156,7 +156,7 @@
   <joint name="Irp6otmJoint4" type="revolute">
     <origin rpy="0 0 0.0" xyz="0.455 0.0 0.0"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.3" upper="0.3" effort="10.0" velocity="0.1" />
+    <limit lower="-0.5" upper="0.3" effort="10.0" velocity="0.1" />
     <parent link="tl_2"/>
     <child link="tl_3"/>
   </joint>
@@ -240,7 +240,7 @@
     <collision>
       <origin rpy="1.57 0 0.0" xyz="0.0 0.0 0.19"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2 2 1.1" />
+        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2.2 2.2 1.1" />
       </geometry>
     </collision>
   </link>
@@ -249,7 +249,7 @@
   <joint name="Irp6otmJoint7" type="revolute">
     <origin rpy="1.570795 0 0" xyz="0.0 0.0 0.19"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-2.9" upper="2.8" effort="10.0" velocity="0.1" />
+    <limit lower="-2.8" upper="2.8" effort="10.0" velocity="0.1" />
     <parent link="tl_5"/>
     <child link="tl_6"/>
   </joint>
@@ -312,9 +312,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.18" />
+        <box size="0.08 0.06 0.20" />
       </geometry>
     </collision>
   </link>
@@ -335,9 +335,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.18" />
+        <box size="0.08 0.06 0.20" />
       </geometry>
     </collision>
   </link>
@@ -541,7 +541,7 @@
     <collision>
       <origin rpy="1.57 0 0.0" xyz="0.0 0.0 0.19"/>
       <geometry>
-        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2 2 1.1"/>
+        <mesh filename="package://irp6_description/meshes/link5.stlb" scale="2.2 2.2 1.1"/>
       </geometry>
     </collision>
   </link>
@@ -609,9 +609,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.18" />
+        <box size="0.08 0.06 0.20" />
       </geometry>
     </collision>
   </link>
@@ -632,9 +632,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.05"/>
+      <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.18" />
+        <box size="0.08 0.06 0.20" />
       </geometry>
     </collision>
   </link>
