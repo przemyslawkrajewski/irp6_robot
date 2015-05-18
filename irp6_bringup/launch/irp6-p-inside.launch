@@ -104,18 +104,33 @@
         joint_names: [joint1]
         lower_limits: [0.053]
         upper_limits: [0.09]
+      Irp6pmMotorParameters:
+        lower_limits: [-470.0, -110.0, -80.0, -70.0, -80.0, -1000.0]
+        upper_limits: [450.0, 100.0, 100.0, 380.0, 490.0, 3000.0]
+        synchro_motor_position: [-15.9, -5.0, -8.527, 151.31, 432.25, 791.0]
       Irp6pmSplineTrajectoryGeneratorMotor:
         number_of_joints: 6
       Irp6pmSplineTrajectoryActionMotor:
         joint_names: [joint1, joint2, joint3, joint4, joint5, joint6]
-        lower_limits: [-470.0, -110.0, -80.0, -70.0, -80.0, -1000.0]
-        upper_limits: [450.0, 100.0, 100.0, 380.0, 490.0, 3000.0]
+      IRp6pmLimitDetector:
+        detector_name: IRp6pm
+        console_notification_active: true
+        pos_inc_limit: [1000.0, 1000.0, 1000.0, 1000.0, 1000.0, 1000.0]
+        pos_limit_active: [true, true, true, true, true, true]
+        pos_inc_limit_active: [true, true, true, true, true, true]
       Irp6ptfgSplineTrajectoryGeneratorMotor:
         number_of_joints: 1
-      Irp6ptfgSplineTrajectoryActionMotor:
-        joint_names: [joint1]
+      Irp6ptfgMotorParameters:
         lower_limits: [-1800.0]
         upper_limits: [1200.0]
+      Irp6ptfgSplineTrajectoryActionMotor:
+        joint_names: [joint1]
+      IRp6ptfgLimitDetector:
+        detector_name: IRp6ptfg
+        console_notification_active: true
+        pos_inc_limit: [1000.0]
+        pos_limit_active: [true]
+        pos_inc_limit_active: [true]
       IRp6pmRegulator_0:
         reg_number: 2
         debug: false
@@ -257,8 +272,6 @@
         force_limits: [65.0, 65.0, 130.0, 5.0, 5.0, 5.0]
         slow_buffer_size: 100
         fast_buffer_size: 2
-      Irp6pmSynchroMotorPos:
-        synchro_motor_position: [-15.9, -5.0, -8.527, 151.31, 432.25, 791.0]
       Irp6pWrenchPublisher:
         frame_id: pl_ef
       Irp6pTfPublisher:
