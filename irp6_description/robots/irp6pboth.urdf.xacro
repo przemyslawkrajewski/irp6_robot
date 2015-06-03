@@ -314,7 +314,7 @@
     <collision>
       <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.20" />
+        <box size="0.08 0.05 0.20" />
       </geometry>
     </collision>
   </link>
@@ -337,7 +337,7 @@
     <collision>
       <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.20" />
+        <box size="0.08 0.05 0.20" />
       </geometry>
     </collision>
   </link>
@@ -569,9 +569,9 @@
     </visual>
 
     <collision>
-      <origin rpy="0.0 0 0.0" xyz="0 0.0 0.1"/>
+      <origin rpy="1.570795 0.0 0.0" xyz="0 0.0 0.0"/>
       <geometry>
-        <cylinder radius="0.12" length="0.10" />
+        <mesh filename="package://irp6_description/meshes/link62.3ds" scale = "0.15 0.15 0.15" />
       </geometry>
     </collision>
   </link>
@@ -611,7 +611,7 @@
     <collision>
       <origin rpy="0.0 0 0.0" xyz="0 0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.20" />
+        <box size="0.03 0.01 0.20" />
       </geometry>
     </collision>
   </link>
@@ -634,7 +634,7 @@
     <collision>
       <origin rpy="0.0 0 0.0" xyz="0 -0.02 0.0"/>
       <geometry>
-        <box size="0.08 0.06 0.20" />
+        <box size="0.03 0.01 0.20" />
       </geometry>
     </collision>
   </link>

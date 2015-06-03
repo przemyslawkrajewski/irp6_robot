@@ -22,14 +22,24 @@
     <group name = "postument_tfg">
 		<link name="pl_g1" />
 		<link name="pl_g2" />
+		<joint name="Irp6ptfgJoint1" />
 	</group>
+	
+	<group name = "postument_gripper">
+		<joint name="Irp6ptfgJoint1" />
+		<joint name="Irp6ptfgJoint1a" />
+		<link name="pl_g1" />
+		<link name="pl_g2" />
+	</group>
+	
+	
     <group name="postument">
         <chain base_link="tl_base" tip_link="tl_6" />
     </group>
     
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="postument_tfg" parent_link="pl_6" group="postument_tfg" parent_group="postument" />
-    <end_effector name="track_rfg"     parent_link="tl_6" group="track_tfg" parent_group="track"/>
+    <end_effector name="track_tfg"     parent_link="tl_6" group="track_tfg" parent_group="track"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="pl_1" link2="pl_2" reason="Adjacent" />
     <disable_collisions link1="pl_1" link2="pl_3" reason="Never" />
