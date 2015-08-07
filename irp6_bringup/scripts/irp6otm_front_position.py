@@ -6,7 +6,7 @@ import math
 
 if __name__ == '__main__':
 	
-	irpos = IRPOS("irp6otm_front_position", "Irp6ot", 7)
+	irpos = IRPOS("irp6otm_front_position", "Irp6ot", 7,)
 	half_pi = math.pi/2
 	
 	if sys.argv[1] == '1':

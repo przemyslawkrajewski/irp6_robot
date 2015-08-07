@@ -10,36 +10,44 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
 
-	<group name = "track_tfg">
-		<link name="tl_g1" />
-		<link name="tl_g2" />
-	</group>
+
     <group name="track">
         <chain base_link="pl_base" tip_link="pl_6" />
     </group>
-    
-    
-    <group name = "postument_tfg">
-		<link name="pl_g1" />
-		<link name="pl_g2" />
-		<joint name="Irp6ptfgJoint1" />
+	<group name = "track_end">
+		<link name="tl_g1" />
+		<link name="tl_g2" />
 	</group>
-	
-	<group name = "postument_gripper">
-		<joint name="Irp6ptfgJoint1" />
-		<joint name="Irp6ptfgJoint1a" />
-		<link name="pl_g1" />
-		<link name="pl_g2" />
-	</group>
-	
-	
+ 
     <group name="postument">
         <chain base_link="tl_base" tip_link="tl_6" />
-    </group>
+    </group>    
+    <group name = "postument_end">
+		<link name="pl_g1" />
+		<link name="pl_g2" />
+	</group>
+	
+	<group name = "postument_tfg">
+		<link name="pl_6" />
+		<joint name="Irp6ptfgJoint1" />
+	</group>
+	    <group name = "postument_tfg_end">
+		<link name="pl_g2" />
+	</group>
+	
+	<group name = "track_tfg">
+		<link name="tl_6" />
+		<joint name="Irp6ottfgJoint1" />
+	</group>
+	    <group name = "track_tfg_end">
+		<link name="tl_g2" />
+	</group>
     
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="postument_tfg" parent_link="pl_6" group="postument_tfg" parent_group="postument" />
-    <end_effector name="track_tfg"     parent_link="tl_6" group="track_tfg" parent_group="track"/>
+    <end_effector name="postument_ee" parent_link="pl_6" group="postument_end" parent_group="postument" />
+    <end_effector name="track_ee"     parent_link="tl_6" group="track_end" parent_group="track"/>
+    <end_effector name="postument_tfg_ee" parent_link="pl_g1" group="postument_tfg_end" parent_group="postument_tfg" />
+    <end_effector name="track_tfg_ee"     parent_link="tl_g1" group="track_tfg_end" parent_group="track_tfg"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="pl_1" link2="pl_2" reason="Adjacent" />
     <disable_collisions link1="pl_1" link2="pl_3" reason="Never" />
