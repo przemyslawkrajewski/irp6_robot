@@ -549,7 +549,7 @@
   <joint name="Irp6pmJoint6" type="revolute">
     <origin rpy="1.570795 0 0" xyz="0.0 0.0 0.19"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-3.0" upper="2.9" effort="10.0" velocity="0.1" />
+    <limit lower="-2.88" upper="2.88" effort="10.0" velocity="0.1" />
     <parent link="pl_5"/>
     <child link="pl_6"/>
   </joint>
